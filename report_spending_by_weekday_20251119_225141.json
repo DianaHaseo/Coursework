@@ -1,0 +1,17 @@
+[
+  {
+    "index": 0,
+    "date": 0,
+    "average_spent": 0.0
+  },
+  {
+    "index": 1,
+    "date": 5,
+    "average_spent": 100.0
+  },
+  {
+    "index": 2,
+    "date": 6,
+    "average_spent": 200.0
+  }
+]
