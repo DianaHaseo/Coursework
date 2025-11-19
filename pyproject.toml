@@ -38,3 +38,4 @@ line_length = 119
 disallow_untyped_defs = true
 warn_return_any = true
 exclude = '.venv'
+

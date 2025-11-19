@@ -15,3 +15,4 @@ def test_month_range_for_date():
     start, end = month_range_for_date(datetime(2025,11,19))
     assert start.day == 1
     assert end.day == 19
+
