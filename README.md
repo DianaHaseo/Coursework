@@ -8,7 +8,7 @@
 
 1. Клонируйте репозиторий:
 ```
-git clone https://github.com/DianaHaseo/Homework.git
+git clone https://github.com/DianaHaseo/Coursework
 ```
 2. Установите зависимости:
 ```
@@ -34,60 +34,6 @@ pytest
 ```
 pytest --cov=src --cov-report=html
 ```
-
-## В проект был добавлен довый модуль generators и тест к нему для проверки работы кода
-
-Для проверки функций filter_by_currency, transaction_descriptions и card_number_generators можно использовать вот такие функции
-
-```
-Пример использования для filter_by_currency:
-
-transactions = [
-    {"id": 1, "amount": 100, "currency": "USD"},
-    {"id": 2, "amount": 200, "currency": "EUR"},
-    {"id": 3, "amount": 150, "currency": "USD"},
-]
-
-usd_transactions = filter_by_currency(transactions, "USD")
-for tx in usd_transactions:
-    print(tx)
-```
-
-```
-Пример использования для transaction_descriptions:
-
-transactions = [
-    {"id": 1, "description": "Перевод организации"},
-    {"id": 2, "description": "Перевод со счета на счет"},
-    {"id": 3, "description": "Перевод со счета на счет"},
-    {"id": 4, "description": "Перевод с карты на карту"},
-    {"id": 5, "description": "Перевод организации"},
-]
-
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
-```
-
-```
-Пример использования для card_number_generators:
-
-for card_number in card_number_generator(1, 5):
-    print(card_number)
-```
-## В проект был добавлен новый модуль decorators и тест к нему для проверки работы кода
-
-В данном файле мы учимся применять декораторы
-
-## В проект был добавлен новый модуль для чтения файлов CSV и Excel внутри Poetry и работы с ними
-
-В данном файле мы учимся внутри программы открывать файлы CSV и Excel внутри кода
-
-## В проект был добавлен новые модули Re и Collections
-
-Реализует поиск по описанию операций с использованием регулярных выражений (re)
-
-Реализует подсчёт количества операций по категориям с использованием collections.Counter
 
 ## Документация:
 
