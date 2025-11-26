@@ -11,6 +11,10 @@ logger.addHandler(logging.NullHandler())
 
 
 def load_user_settings(path: str = "user_settings.json") -> Dict[str, Any]:
+    """
+    Загружает настройки пользователя из JSON-файла.
+    Если файл отсутствует, возвращает настройки по умолчанию с пустыми списками.
+    """
     try:
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -20,6 +24,9 @@ def load_user_settings(path: str = "user_settings.json") -> Dict[str, Any]:
 
 
 def get_api_keys() -> Dict[str, str]:
+    """
+    Возвращает словарь с API ключами из переменных окружения.
+    """
     return {
         "currency_key": os.getenv("API_KEY_1", ""),
         "stocks_key": os.getenv("API_KEY_2", "")
@@ -27,16 +34,26 @@ def get_api_keys() -> Dict[str, str]:
 
 
 def parse_datetime(dt_str: str) -> datetime:
+    """
+    Парсит строку в объект datetime по формату '%Y-%m-%d %H:%M:%S'.
+    """
     return datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S")
 
 
 def month_range_for_date(dt: datetime) -> Tuple[date, date]:
+    """
+    Возвращает кортеж с началом месяца и текущей датой для переданной даты dt.
+    """
     start = date(dt.year, dt.month, 1)
     end = dt.date()
     return start, end
 
 
 def load_operations_xlsx(path: str = "data/operations.xlsx") -> pd.DataFrame:
+    """
+    Загружает Excel-файл с операциями и нормализует колонки к ожидаемому формату.
+    Преобразует нужные колонки, возвращает DataFrame с операциями для дальнейшего анализа.
+    """
     df = pd.read_excel(path)
 
     # Нормализация колонок: ищем наиболее вероятные названия

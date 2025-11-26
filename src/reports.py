@@ -10,6 +10,11 @@ logger.addHandler(logging.NullHandler())
 
 
 def save_report(func: Optional[Callable] = None, *, filename: Optional[str] = None):
+    """
+    Декоратор для сохранения результата функции в JSON-файл отчёта.
+    Если filename не задан, формирует имя с меткой времени.
+    Поддерживает сохранение pandas.DataFrame и других типов.
+    """
     def decorator(f):
         def wrapper(*args, **kwargs):
             res = f(*args, **kwargs)
@@ -42,6 +47,10 @@ def save_report(func: Optional[Callable] = None, *, filename: Optional[str] = No
 
 
 def _ensure_datetime_index(transactions: pd.DataFrame) -> pd.DataFrame:
+    """
+    Убеждается, что DataFrame transactions содержит колонку 'date' в типе datetime.
+    Если колонка 'date' не в datetime формате, конвертирует её.
+    """
     if 'date' not in transactions.columns:
         raise ValueError("DataFrame должен содержать колонку 'date'")
 
@@ -55,6 +64,10 @@ def _ensure_datetime_index(transactions: pd.DataFrame) -> pd.DataFrame:
 
 @save_report
 def spending_by_category(transactions: pd.DataFrame, category: str, date: Optional[str] = None) -> pd.DataFrame:
+    """
+    Возвращает расход по указанной категории за последние 3 месяца до даты.
+    Фильтрует транзакции по категории и дате, сортирует по дате.
+    """
     df = _ensure_datetime_index(transactions)
     dt = pd.to_datetime(date) if date else pd.Timestamp.now()
 
@@ -68,6 +81,10 @@ def spending_by_category(transactions: pd.DataFrame, category: str, date: Option
 
 @save_report
 def spending_by_weekday(transactions: pd.DataFrame, date: Optional[str] = None) -> pd.DataFrame:
+    """
+    Рассчитывает средние расходы по дням недели за последние 3 месяца до даты.
+    Отрицательные суммы считаются расходами.
+    """
     df = _ensure_datetime_index(transactions)
     dt = pd.to_datetime(date) if date else pd.Timestamp.now()
 
@@ -90,6 +107,10 @@ def spending_by_weekday(transactions: pd.DataFrame, date: Optional[str] = None) 
 
 @save_report
 def spending_by_workday(transactions: pd.DataFrame, date: Optional[str] = None) -> pd.DataFrame:
+    """
+    Рассчитывает средние расходы в рабочие дни и выходные за последние 3 месяца до даты.
+    Возвращает DataFrame с типом дня и средним расходом.
+    """
     df = _ensure_datetime_index(transactions)
     dt = pd.to_datetime(date) if date else pd.Timestamp.now()
 
