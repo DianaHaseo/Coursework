@@ -11,15 +11,11 @@ logger.addHandler(logging.NullHandler())
 
 
 def _is_expense(amount: float) -> bool:
-    """Определяет, является ли сумма расходом (отрицательным числом)."""
+    # В вашем файле расходы представлены отрицательными числами
     return amount < 0
 
 
 def cashback_by_category(transactions: List[Dict[str, Any]], year: int, month: int) -> Dict[str, int]:
-    """
-    Рассчитывает кешбэк по категориям за указанный год и месяц.
-    Кешбэк начисляется из суммы расходов (целое число рублей).
-    """
     def in_month(t):
         d = t['date']
         if isinstance(d, str):
@@ -39,10 +35,6 @@ def cashback_by_category(transactions: List[Dict[str, Any]], year: int, month: i
 
 
 def investment_bank(month: str, transactions: List[Dict[str, Any]], limit: int) -> float:
-    """
-    Рассчитывает сумму округления расходов вверх до заданного лимита для месяца.
-    Полезно для подсчёта бонусов банков по инвестиционным услугам.
-    """
     year, mon = map(int, month.split('-'))
 
     def in_month(t):
@@ -65,10 +57,6 @@ def investment_bank(month: str, transactions: List[Dict[str, Any]], limit: int) 
 
 
 def simple_search(transactions: List[Dict[str, Any]], query: str) -> List[Dict[str, Any]]:
-    """
-    Выполняет простой поиск по описанию и категории транзакций по ключевому слову.
-    Возвращает список соответствующих транзакций.
-    """
     q = query.lower()
     return list(
         filter(
@@ -80,9 +68,6 @@ def simple_search(transactions: List[Dict[str, Any]], query: str) -> List[Dict[s
 
 
 def phone_search(transactions: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """
-    Поиск транзакций, в описании которых встречается телефонный номер в формате +7...
-    """
     phone_re = re.compile(r"\+?7[\s-]?\(?\d{3}\)?[\s-]?\d{1,3}[\s-]?\d{2}[\s-]?\d{2}")
     return list(
         filter(
@@ -93,10 +78,6 @@ def phone_search(transactions: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 def transfers_to_persons(transactions: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """
-    Фильтрует транзакции, являющиеся переводами физическим лицам.
-    Использует регулярные выражения для обнаружения имён и категорий переводов.
-    """
     pattern = re.compile(r"\b[А-ЯЁ][а-яё]+(?:\s+[А-Я]\.)")
 
     def is_transfer(t):
