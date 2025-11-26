@@ -86,4 +86,3 @@ def transfers_to_persons(transactions: List[Dict[str, Any]]) -> List[Dict[str, A
         return ('перевод' in cat or cat == 'переводы') and bool(pattern.search(desc))
 
     return list(filter(is_transfer, transactions))
-
